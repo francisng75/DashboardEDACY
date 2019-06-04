@@ -28,6 +28,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     [
+        # NavBAr
         dbc.NavbarSimple(
             brand="EDACY DASHBOARD",
             brand_href="http://127.0.0.1:8050",
@@ -105,7 +106,7 @@ def render_content(tab):
                                     {"label": "Cohorte 7", "value": "C7"},
                                 ],
                                 value=["Cohortes"],
-                                multi=True,
+                                multi=False,
                                 style={
                                     "marginLeft": 35,
                                     "marginRight": 0,
@@ -116,37 +117,96 @@ def render_content(tab):
                             )
                         ]
                     ),
-                    
                     # Talents graph
                     html.Div(
                         [
-                            dcc.Graph(
-                                id="graph-1-tabs",
-                                figure={
-                                    "data": [
-                                        {
-                                            "x": [""],
-                                            "y": [np.mean(df1["Hard_Score"]).round(1)],
-                                            "type": "bar",
-                                            "name": "Hard Skills",
-                                            # edacy blue
-                                            "marker": {"color": "#61BFAD"},
-                                        },
-                                        {
-                                            "x": [""],
-                                            "y": [np.mean(df1["Soft_Score"]).round(1)],
-                                            "type": "bar",
-                                            "name": "Soft Skills",
-                                            # edacy yellow
-                                            "marker": {"color": "#FFCC00"},
-                                        },
-                                    ]
-                                },
-                                style={"width": "50%"},
+                            # 1st graph
+                            dbc.Row(
+                                [
+                                    dbc.Col(
+                                        html.Div(
+                                            dcc.Graph(
+                                                id="graph-1-tabs",
+                                                figure={
+                                                    "data": [
+                                                        {
+                                                            "x": [""],
+                                                            "y": [
+                                                                np.mean(
+                                                                    df1["Hard_Score"]
+                                                                ).round(1)
+                                                            ],
+                                                            "type": "bar",
+                                                            "name": "Hard Skills",
+                                                            # edacy blue
+                                                            "marker": {
+                                                                "color": "#61BFAD"
+                                                            },
+                                                        },
+                                                        {
+                                                            "x": [""],
+                                                            "y": [
+                                                                np.mean(
+                                                                    df1["Soft_Score"]
+                                                                ).round(1)
+                                                            ],
+                                                            "type": "bar",
+                                                            "name": "Soft Skills",
+                                                            # edacy yellow
+                                                            "marker": {
+                                                                "color": "#FFCC00"
+                                                            },
+                                                        },
+                                                    ]
+                                                },
+                                                style={"width": "50%"},
+                                            ),
+                                            # style={"order": 1}
+                                        )
+                                    ),
+                                    # 2nd graph
+                                    dbc.Col(
+                                        html.Div(
+                                            dcc.Graph(
+                                                id="graph-2-tabs",
+                                                figure={
+                                                    "data": [
+                                                        {
+                                                            "x": [""],
+                                                            "y": [
+                                                                np.mean(
+                                                                    df1["Hard_Score"]
+                                                                ).round(1)
+                                                            ],
+                                                            "type": "bar",
+                                                            "name": "Skills",
+                                                            # edacy blue
+                                                            "marker": {
+                                                                "color": "#61BFAD"
+                                                            },
+                                                        },
+                                                        {
+                                                            "x": [""],
+                                                            "y": [
+                                                                np.mean(
+                                                                    df1["Soft_Score"]
+                                                                ).round(1)
+                                                            ],
+                                                            "type": "bar",
+                                                            "name": "Soft",
+                                                            # edacy yellow
+                                                            "marker": {"color": "#FFCC00"},
+                                                        },
+                                                    ]
+                                                },
+                                                style={"width": "50%"},
+                                            )
+                                        )
+                                    ),
+                                ]
                             )
                         ]
                     ),
-                    
                     # Table title
                     html.H4(
                         "Talents DataTable",
@@ -158,7 +218,6 @@ def render_content(tab):
                             "width": "50%",
                         },
                     ),
-                    
                     # Table
                     html.Div(
                         dash_table.DataTable(
