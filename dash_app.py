@@ -72,14 +72,16 @@ app.layout = html.Div(
                 "Make Prediction",
                 className="mr-1",
                 style={
-                    "color": "#FFCC00",
+                    "color": "black",
                     "marginBottom": 50,
                     "marginTop": 20,
                     "float": "left",
-                    "width": "180px",
+                    "width": "190px",
+                    "backgroundColor": "#FFCC00",
+                    "border": "#FFCC00"
                 },
             ),
-            style={"marginLeft": 50},
+            style={"marginLeft": 50, "backgroundColor": "yellow"},
         ),
     ]
 )
@@ -159,7 +161,7 @@ def render_content(tab):
                                                         },
                                                     ]
                                                 },
-                                                style={"width": "50%"},
+                                                style={"width": "100%"},
                                             ),
                                             # style={"order": 1}
                                         )
@@ -199,9 +201,10 @@ def render_content(tab):
                                                         },
                                                     ]
                                                 },
-                                                style={"width": "50%"},
+                                                style={"width": "100%"},
                                             )
-                                        )
+                                        ),
+                                        # style={'backgroundColor':'#F5F5F5'}
                                     ),
                                 ]
                             )
