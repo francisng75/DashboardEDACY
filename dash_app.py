@@ -78,7 +78,7 @@ app.layout = html.Div(
                     "float": "left",
                     "width": "190px",
                     "backgroundColor": "#FFCC00",
-                    "border": "#FFCC00"
+                    "border": "#FFCC00",
                 },
             ),
             style={"marginLeft": 50, "backgroundColor": "yellow"},
@@ -197,7 +197,9 @@ def render_content(tab):
                                                             "type": "bar",
                                                             "name": "Soft",
                                                             # edacy yellow
-                                                            "marker": {"color": "#FFCC00"},
+                                                            "marker": {
+                                                                "color": "#FFCC00"
+                                                            },
                                                         },
                                                     ]
                                                 },
@@ -211,37 +213,49 @@ def render_content(tab):
                         ]
                     ),
                     # Table title
-                    html.H4(
-                        "Talents DataTable",
-                        style={
-                            "marginLeft": 50,
-                            "marginRight": 0,
-                            "marginTop": 0,
-                            "marginBottom": 0,
-                            "width": "50%",
-                        },
-                    ),
+                    # html.H4(
+                    #     "Talents DataTable",
+                    #     style={
+                    #         "marginLeft": 50,
+                    #         "marginRight": 0,
+                    #         "marginTop": 0,
+                    #         "marginBottom": 0,
+                    #         "width": "50%",
+                    #     },
                     # Table
                     html.Div(
-                        dash_table.DataTable(
-                            id="table",
-                            columns=[{"name": i, "id": i} for i in df1.columns],
-                            data=df1.to_dict("records"),
-                            style_table={"overflowX": "scroll"},
-                            n_fixed_rows=1,
-                            style_cell={
-                                "minWidth": "150px",
-                                "width": "150px",
-                                "maxWidth": "150px",
-                            },
+                        # dash_table.DataTable(
+                        #     id="table",
+                        #     columns=[{"name": i, "id": i} for i in df1.columns],
+                        #     data=df1.to_dict("records"),
+                        #     style_table={"overflowX": "scroll"},
+                        #     n_fixed_rows=1,
+                        #     style_cell={
+                        #         "minWidth": "150px",
+                        #         "width": "150px",
+                        #         "maxWidth": "150px",
+                        #     },
+                        # ),
+                        # style={
+                        #     "width": "90%",
+                        #     "height": "40%",
+                        #     "marginLeft": 50,
+                        #     "marginRight": 0,
+                        #     "marginTop": 10,
+                        #     "marginBottom": 0,
+                        # },
+                        dbc.Table.from_dataframe(
+                            df1,
+                            striped=True,
+                            bordered=True,
+                            hover=True,
+                            size="lg",
+                            responsive=True,
                         ),
                         style={
                             "width": "90%",
-                            "height": "40%",
-                            "marginLeft": 50,
-                            "marginRight": 0,
-                            "marginTop": 10,
-                            "marginBottom": 0,
+                            "margin-left": "auto",
+                            "margin-right": "auto",
                         },
                     ),
                 ]
@@ -251,19 +265,49 @@ def render_content(tab):
     elif tab == "Instructors":
         return html.Div(
             [
-                dcc.Graph(
-                    id="graph-2-tabs",
-                    figure={
-                        "data": [
-                            {
-                                "x": [1, 2, 3],
-                                "y": [5, 10, 6],
-                                "type": "bar",
-                                "marker": {"color": "#61BFAD"},
-                            }
-                        ]
-                    },
-                    style={"width": "50%"},
+                html.Div(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    html.Div(
+                                        dcc.Graph(
+                                            id="graph-tabs_1",
+                                            figure={
+                                                "data": [
+                                                    {
+                                                        "x": [1, 2, 3],
+                                                        "y": [5, 10, 6],
+                                                        "type": "bar",
+                                                        "marker": {"color": "#61BFAD"},
+                                                    }
+                                                ]
+                                            },
+                                            style={"width": "100%"},
+                                        )
+                                    )
+                                ),
+                                dbc.Col(
+                                    html.Div(
+                                        dcc.Graph(
+                                            id="graph-tabs_2",
+                                            figure={
+                                                "data": [
+                                                    {
+                                                        "x": [10, 20, 30],
+                                                        "y": [5, 10, 6],
+                                                        "type": "bar",
+                                                        "marker": {"color": "#61BFAD"},
+                                                    }
+                                                ]
+                                            },
+                                            style={"width": "100%"},
+                                        )
+                                    )
+                                ),
+                            ]
+                        )
+                    ]
                 )
             ]
         )
