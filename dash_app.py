@@ -14,6 +14,7 @@ import plotly.graph_objs as go
 
 # DataFrames
 df1 = pd.read_csv("C:\\Users\\hp\\Desktop\\Données\\Talents_List_Dash.csv")
+pred = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Predictor")
 month1 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month1")
 month2 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month2")
 month3 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month3")
@@ -23,7 +24,6 @@ month6 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet
 month7 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month7")
 month8 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month8")
 month9 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month9")
-
 
 
 # APP
@@ -42,7 +42,7 @@ app.layout = html.Div(
     [
         # Navigation BAr
         dbc.NavbarSimple(
-            brand="EDACY DASHBOARD",
+            brand="ANALYTIX",
             brand_href="http://127.0.0.1:8050",
             color="#F5F5F5",
             brand_style={
@@ -53,7 +53,22 @@ app.layout = html.Div(
                 "marginTop": 20,
                 "marginBottom": 20,
             },
+            children= dbc.Button(
+                "Make Prediction",
+                className="mr-1",
+                style={
+                    "color": "black",
+                    "marginBottom": 50,
+                    "marginTop": 20,
+                    "float": "left",
+                    "width": "190px",
+                    "backgroundColor": "#FFCC00",
+                    "border": "#FFCC00",
+                    "marginLeft": 50, "backgroundColor": "#FFCC00",
+                },
+            ),
         ),
+        
         
         html.Div(
             [
@@ -81,8 +96,8 @@ app.layout = html.Div(
         # Make Prediction Button
         html.Br(),
         html.Div(
-            dbc.Button(
-                "Make Prediction",
+            dbc.Modal(
+                "Table",
                 className="mr-1",
                 style={
                     "color": "black",
@@ -94,7 +109,6 @@ app.layout = html.Div(
                     "border": "#FFCC00",
                 },
             ),
-            style={"marginLeft": 50, "backgroundColor": "yellow"},
         ),
     ]
 )
@@ -147,9 +161,7 @@ def render_content(tab):
                                                         {
                                                             "x": [""],
                                                             "y": [
-                                                                np.mean(
-                                                                    df1["Hard_Score"]
-                                                                ).round(1)
+                                                                np.mean(pred["Hard_Score"]).round()
                                                             ],
                                                             "type": "bar",
                                                             "name": "Hard Skills",
@@ -161,9 +173,7 @@ def render_content(tab):
                                                         {
                                                             "x": [""],
                                                             "y": [
-                                                                np.mean(
-                                                                    df1["Soft_Score"]
-                                                                ).round(1)
+                                                                np.mean(pred["Soft_Score"]).round()
                                                             ],
                                                             "type": "bar",
                                                             "name": "Soft Skills",
