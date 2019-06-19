@@ -14,8 +14,16 @@ import plotly.graph_objs as go
 
 # DataFrames
 df1 = pd.read_csv("C:\\Users\\hp\\Desktop\\Données\\Talents_List_Dash.csv")
-df1.head()
-np.mean(df1["Hard_Score"]).round(1)
+month1 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month1")
+month2 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month2")
+month3 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month3")
+month4 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month4")
+month5 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month5")
+month6 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month6")
+month7 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month7")
+month8 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month8")
+month9 = pd.read_excel("C:\\Users\\hp\\Desktop\\Données\\base de donnée projet edacy notes arrangées.xlsx",sheet_name="Month9")
+
 
 
 # APP
@@ -26,9 +34,13 @@ external_stylesheets = [
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+
+
 app.layout = html.Div(
+    
+    # ENTIRE APP LAYOUT
     [
-        # NavBAr
+        # Navigation BAr
         dbc.NavbarSimple(
             brand="EDACY DASHBOARD",
             brand_href="http://127.0.0.1:8050",
@@ -42,7 +54,7 @@ app.layout = html.Div(
                 "marginBottom": 20,
             },
         ),
-        # html.Br(),
+        
         html.Div(
             [
                 html.Div(
@@ -65,7 +77,8 @@ app.layout = html.Div(
                 html.Div(id="tabs-content"),
             ]
         ),
-        # Prediction Button
+        
+        # Make Prediction Button
         html.Br(),
         html.Div(
             dbc.Button(
